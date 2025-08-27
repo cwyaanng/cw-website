@@ -1,0 +1,56 @@
+/* style.css */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .left { flex: 1; }
+.header .right img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+}
+
+/* 수상 섹션 레이아웃 */
+.award {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+}
+
+.award .left {
+  width: 150px;
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+}
+
+.award .left .date {
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.award .award-img {
+  width: 80px;   /* 썸네일 크기 */
+  height: auto;
+  object-fit: contain;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.award .center {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 0 15px;
+}
+
+.award .right {
+  width: 200px;
+  text-align: right;
+  font-size: 14px;
+  color: #333;
+}
