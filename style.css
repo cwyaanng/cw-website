@@ -1,56 +1,124 @@
-/* style.css */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* ============ Base ============ */
+:root{
+  --text:#111;
+  --muted:#555;
+  --line:#ddd;
 }
-.header .left { flex: 1; }
-.header .right img {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid #ddd;
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font:14px/1.65 -apple-system,BlinkMacSystemFont,"Noto Sans KR","Malgun Gothic","Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:#fff;
+}
+.container{max-width:900px;margin:0 auto;padding:28px 16px;}
+h1,h2,h3{margin:0 0 8px;}
+h2{font-size:18px;border-left:5px solid #000;padding-left:10px;margin:28px 0 12px;}
+h3{font-size:16px;margin-top:2px;}
+p{margin:4px 0;}
+ul{margin:6px 0 6px 18px;padding:0;}
+strong{font-weight:700;}
+
+/* ============ Header ============ */
+.header{
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:18px;
+}
+.header .left{flex:1;}
+.header .left h1{font-size:28px;line-height:1.2;}
+.header .info{font-size:13px;color:var(--muted);}
+.header .right img{
+  width:auto;height:120px;object-fit:cover;border-radius:8px;border:1px solid var(--line);
 }
 
-/* 수상 섹션 레이아웃 */
-.award {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
-  padding: 12px 0;
+/* ============ Tables (교육/연수 등) ============ */
+table{width:100%;border-collapse:collapse;font-size:14px;}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+thead th{background:#fafafa;font-weight:700;}
+/* 긴 셀도 보기 좋게 */
+td br{line-height:1.4;}
+
+/* ============ Projects (버전 A: project-left / project-right) ============ */
+.project{
+  display:grid;grid-template-columns:180px 1fr;gap:16px;
+  border-bottom:1px solid var(--line);padding:14px 0;align-items:center;
+}
+.project:last-child{border-bottom:none;}
+/* 왼쪽 썸네일 + 날짜 */
+.project-left{text-align:center;color:var(--muted);font-size:13px;}
+.project-img{
+  width:100%;max-width:160px;height:auto;object-fit:contain;
+  border:1px solid #eee;border-radius:6px;background:#fafafa;padding:6px;margin-bottom:6px;
+}
+.project-left .date{margin-top:2px;}
+/* 우측 본문 */
+.project-right h3{margin-bottom:6px;}
+.project-right p{margin:3px 0;}
+
+/* ============ Projects (버전 B: thumb / desc) ============ */
+.thumb {
+  display: block; /* flex 대신 block */
+  text-align: center; /* 가운데 정렬 원하면 */
 }
 
-.award .left {
-  width: 150px;
-  text-align: center;
-  font-size: 13px;
-  color: #555;
-}
-
-.award .left .date {
-  margin-bottom: 6px;
-  font-weight: bold;
-}
-
-.award .award-img {
-  width: 80px;   /* 썸네일 크기 */
+.thumb img {
+  display: block;     /* 한 줄에 하나씩 */
+  margin: 0 auto 8px; /* 가운데 정렬 + 아래 간격 */
+  max-width: 160px;   /* 원하는 크기 */
   height: auto;
-  object-fit: contain;
-  border: 1px solid #ccc;
   border-radius: 4px;
+  object-fit: contain;
 }
 
-.award .center {
-  flex: 1;
-  font-size: 15px;
-  font-weight: 500;
-  padding: 0 15px;
+.desc h3{margin-bottom:6px;}
+.desc ul{margin:0;padding-left:18px;}
+.desc li{margin:4px 0;}
+
+/* ============ Awards (날짜+썸네일 / 내용 / 기관 레이아웃 대비용) ============ */
+.award{
+  display:grid;grid-template-columns:140px 1fr 220px;gap:12px;
+  align-items:center;border-bottom:1px solid var(--line);padding:10px 0;
+}
+.award .left{text-align:center;color:var(--muted);font-size:13px;}
+.award .left .date{margin-bottom:6px;font-weight:600;}
+.award .award-img{
+  max-width:100px;max-height:100px;width:auto;height:auto;object-fit:contain;
+  border:1px solid #ccc;border-radius:4px;
+}
+.award .center{font-weight:500;}
+.award .right{text-align:right;color:#333;}
+
+/* ============ Responsive ============ */
+@media (max-width:720px){
+  .project{grid-template-columns:1fr;}
+  .project-left{order:-1;}
+  .award{grid-template-columns:1fr;}
+  .award .right{text-align:left;}
+  .header .right img{height:100px;}
 }
 
-.award .right {
-  width: 200px;
-  text-align: right;
-  font-size: 14px;
-  color: #333;
+/* ============ Print (A4 최적화) ============ */
+@media print{
+  @page{size:A4;margin:12mm;}
+  body{font-size:13.5px;line-height:1.45;}
+  a{color:#000;text-decoration:none;}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+  /* 표: 헤더 반복 + 행 단위 보호(표 전체가 통째로 넘어가는 문제 방지) */
+  thead{display:table-header-group;}
+  tfoot{display:table-footer-group;}
+  table{break-inside:auto;page-break-inside:auto;}
+  tr{break-inside:avoid;page-break-inside:avoid;}
+
+  /* 섹션 전체를 막지 말고, 카드/행만 보호 */
+  section{break-inside:auto;page-break-inside:auto;}
+  .project,.award{break-inside:avoid;page-break-inside:avoid;border-bottom-color:#ccc;}
+
+  /* 이미지 크기 축소로 조화로운 배치 */
+  .header .right img{max-height:110px;}
+  .project-img,.thumb img{max-width:140px;}
+  .award .award-img{max-width:55px;max-height:55px;border-color:#bbb;}
+
+  /* 카드 배경/테두리 은은하게 */
+  .thumb{background:transparent;border-color:#ddd;}
 }
